@@ -53,8 +53,33 @@ def print_portfolio_report():
     print("Portfolio Summary")
     print("==============================")
     print(f"Total Portfolio Value: {format_money(portfolio['total_value'])}")
+    print(f"Total Cost Basis: {format_money(portfolio['total_cost_basis'])}")
+    print(f"Total Gain/Loss: {format_money(portfolio['total_gain_loss'])}")
+    print(f"Total Gain/Loss %: {format_percent(portfolio['total_gain_loss_percent'])}")
     print()
 
+    print("Biggest Positions")
+    print("------------------------------")
+    for holding in portfolio["biggest_positions"]:
+        print(
+            f"{holding['ticker']}: "
+            f"{format_money(holding['position_value'])} "
+            f"({format_percent(holding['allocation_percent'])})"
+        )
+    print()
+
+    print("Most Overvalued By Model")
+    print("------------------------------")
+    for holding in portfolio["most_overvalued"]:
+        print(
+            f"{holding['ticker']}: "
+            f"{holding['overvaluation_score']}/100 - "
+            f"{holding['valuation_label']}"
+        )
+    print()
+
+    print("All Holdings")
+    print("------------------------------")
     for holding in portfolio["holdings"]:
         print(f"{holding['ticker']}")
         print(f"  Shares: {holding['shares']}")

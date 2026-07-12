@@ -14,6 +14,7 @@ def analyze_portfolio(file_path="data/portfolio.csv"):
     portfolio = read_portfolio(file_path)
     holdings = []
     total_value = 0
+    total_cost_basis = 0
 
     for _, row in portfolio.iterrows():
         ticker = str(row["ticker"]).upper().strip()
@@ -37,6 +38,7 @@ def analyze_portfolio(file_path="data/portfolio.csv"):
             gain_loss_percent = gain_loss_dollars / cost_basis_total
 
         score = calculate_overvaluation_score(stock_data)
+        total_cost_basis += cost_basis_total
 
         holdings.append(
             {
@@ -62,7 +64,31 @@ def analyze_portfolio(file_path="data/portfolio.csv"):
         else:
             holding["allocation_percent"] = holding["position_value"] / total_value
 
+    total_gain_loss = total_value - total_cost_basis
+
+    if total_cost_basis == 0:
+        total_gain_loss_percent = 0
+    else:
+        total_gain_loss_percent = total_gain_loss / total_cost_basis
+
+    biggest_positions = sorted(
+        holdings,
+        key=lambda holding: holding["position_value"],
+        reverse=True,
+    )[:5]
+
+    most_overvalued = sorted(
+        holdings,
+        key=lambda holding: holding["overvaluation_score"],
+        reverse=True,
+    )[:5]
+
     return {
         "holdings": holdings,
         "total_value": total_value,
+        "total_cost_basis": total_cost_basis,
+        "total_gain_loss": total_gain_loss,
+        "total_gain_loss_percent": total_gain_loss_percent,
+        "biggest_positions": biggest_positions,
+        "most_overvalued": most_overvalued,
     }
