@@ -2,6 +2,7 @@ from recommendations import get_recommendation
 from stock_data import format_large_number, format_money, format_percent, get_stock_data
 from valuation import calculate_overvaluation_score, interpret_score
 from portfolio import analyze_portfolio
+from watchlist import analyze_watchlist
 
 
 def print_stock_report(ticker):
@@ -68,6 +69,31 @@ def print_portfolio_report():
         print()
 
 
+def print_watchlist_report():
+    """Print a watchlist sorted from least to most overvalued."""
+    try:
+        watchlist = analyze_watchlist()
+    except FileNotFoundError:
+        print("\nCould not find data/watchlist.csv.")
+        return
+
+    print("\n==============================")
+    print("Watchlist")
+    print("==============================")
+    print("Sorted from least to most overvalued by this simple model.")
+    print()
+
+    for stock in watchlist:
+        print(f"{stock['ticker']} - {stock['company_name']}")
+        print(f"  Current Price: {format_money(stock['current_price'])}")
+        print(f"  Trailing P/E: {stock['trailing_pe'] or 'N/A'}")
+        print(f"  Price/Sales: {stock['price_to_sales'] or 'N/A'}")
+        print(f"  Score: {stock['overvaluation_score']}/100")
+        print(f"  Valuation: {stock['valuation_label']}")
+        print(f"  Educational Action: {stock['action']}")
+        print()
+
+
 def show_menu():
     """Show the main CLI menu."""
     print("==============================")
@@ -91,7 +117,7 @@ def main():
         elif choice == "2":
             print_portfolio_report()
         elif choice == "3":
-            print("\nWatchlist is planned for a future version.\n")
+            print_watchlist_report()
         elif choice == "4":
             print("\nGoodbye.")
             break

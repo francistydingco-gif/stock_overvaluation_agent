@@ -12,6 +12,8 @@ The current app uses Yahoo Finance data through `yfinance` and focuses on educat
 - Gives a cautious educational recommendation
 - Reads a portfolio from `data/portfolio.csv`
 - Calculates position value, gain/loss, and portfolio allocation
+- Reads a watchlist from `data/watchlist.csv`
+- Sorts watchlist stocks from least to most overvalued
 
 ## Install Dependencies
 
@@ -44,6 +46,18 @@ NVDA,1,100
 
 `cost_basis` means your average cost per share.
 
+## Watchlist CSV Format
+
+Edit `data/watchlist.csv` with tickers you want to monitor:
+
+```csv
+ticker
+TSLA
+NVDA
+AMD
+PLTR
+```
+
 ## Current Limitations
 
 - The valuation score is a simple educational model, not a professional valuation system
@@ -54,7 +68,6 @@ NVDA,1,100
 
 ## Next Planned Features
 
-- Watchlist support
 - Better portfolio report formatting
 - Morning investment summary
 - News summaries
