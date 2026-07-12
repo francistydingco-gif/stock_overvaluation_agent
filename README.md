@@ -27,6 +27,12 @@ pip install -r requirements.txt
 python main.py
 ```
 
+On Mac, you can also double-click:
+
+```text
+Launch Francis AI Investing.command
+```
+
 Then choose from the menu:
 
 1. Analyze One Stock
