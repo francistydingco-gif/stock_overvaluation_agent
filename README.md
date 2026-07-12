@@ -33,6 +33,18 @@ On Mac, you can also double-click:
 Launch Francis AI Investing.command
 ```
 
+For a faster portfolio-only view, double-click:
+
+```text
+Francis Portfolio.command
+```
+
+To place a shortcut on your Desktop, double-click:
+
+```text
+Install Desktop Shortcut.command
+```
+
 Then choose from the menu:
 
 1. Analyze One Stock
